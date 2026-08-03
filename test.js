@@ -1,16 +1,13 @@
-function longStr(str) {
-  // 滑动窗口，双指针
-  let maxLen = 0
-  let left = 0
-  let map = new Map()
-  for (let right = 0; right < str.length; right++) {
-    while (map.has(str[right])) {
-      map.delete(str[left])
-      left++
-    }
-    map.set(str[right])
-    maxLen = Math.max(maxLen, right - left + 1)
+function diameterOfBinaryTree(root) {
+  let ans = 0
+  // 返回当前节点子树高度
+  function getHeight(node) {
+    if (!node) return -1
+    const leftH = getHeight(node.left)
+    const rightH = getHeight(node.right)
+    ans = Math.max(ans, leftH + rightH)
+    return Math.max(leftH + rightH) + 1
   }
-  return maxLen
+  getHeight(root)
+  return ans
 }
-console.log(longStr('acsad'))
