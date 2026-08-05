@@ -1,12 +1,3 @@
-function debounce1(fn, delay = 300) {
-  let timer = null
-  return function (...args) {
-    let context = this
-    clearTimeout(timer)
-    timer = setTimeout(() => fn.apply(context, args), delay)
-  }
-}
-
 /**
  * @desc  函数防抖
  * @param {Function} func
