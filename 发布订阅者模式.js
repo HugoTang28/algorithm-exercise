@@ -2,19 +2,16 @@ class EventBus {
   constructor() {
     this.eventMap = {}
   }
-  // 监听
   on(name, fn) {
     if (!this.eventMap[name]) this.eventMap[name] = []
     this.eventMap[name].push(fn)
   }
-  // 订阅
   emit(name, ...args) {
     this.eventMap[name]?.forEach((fn) => fn(...args))
   }
-  // 取消监听
   off(name, fn) {
     if (!this.eventMap[name]) return
-    // 如果fn为空，取消所有监听
+    // 没传 fn 就清空该事件下所有订阅
     if (!fn) {
       this.eventMap[name] = []
       return
@@ -22,18 +19,20 @@ class EventBus {
     this.eventMap[name] = this.eventMap[name].filter((item) => item !== fn)
   }
 }
-
 const bus = new EventBus()
 
-const fnA = (v) => console.log('A事件收到:', v)
-const fnB = (v) => console.log('B事件收到:', v)
+const handlerA = (v) => console.log('A 收到:', v)
+const handlerB = (v) => console.log('B 收到:', v)
 
-bus.on('msgs', fnA)
-bus.on('msgs', fnB)
+bus.on('msg', handlerA)
+bus.on('msg', handlerB)
 
-bus.emit('msgs', 123)
+bus.emit('msg', 1)
+// 输出：A 收到: 1
+//       B 收到: 1
 
-console.log('-------------------------')
+// 2. 取消 handlerA
+bus.off('msg', handlerA)
 
-bus.off('msgs', fnA)
-bus.emit('msgs', 123)
+bus.emit('msg', 2)
+// 输出：B 收到: 2   （A 已被取消，不再触发）
