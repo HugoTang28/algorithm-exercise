@@ -1,39 +1,24 @@
-class EventBus {
-  constructor() {
-    this.eventMap = {}
+var topKFrequent = function (nums, k) {
+  // 第一步：统计每个元素的出现次数
+  const cnt = new Map()
+  for (const x of nums) {
+    cnt.set(x, (cnt.get(x) ?? 0) + 1)
   }
-  // 监听
-  on(name, fn) {
-    if (!this.eventMap[name]) this.eventMap[name] = []
-    this.eventMap[name].push(fn)
+  const maxCnt = Math.max(...cnt.values())
+
+  // 第二步：把出现次数相同的元素，放到同一个桶中
+  const buckets = Array.from({ length: maxCnt + 1 }, () => [])
+  for (const [x, c] of cnt.entries()) {
+    buckets[c].push(x)
   }
-  // 订阅
-  emit(name, ...args) {
-    this.eventMap[name]?.forEach((fn) => fn(...args))
+
+  // 第三步：倒序遍历 buckets，把出现次数前 k 大的元素加入答案
+  const ans = []
+  // 注意题目保证答案唯一，一定会出现某次 push 后 ans.length 恰好等于 k 的情况
+  for (let i = maxCnt; ans.length < k; i--) {
+    ans.push(...buckets[i])
   }
-  // 取消监听
-  off(name, fn) {
-    if (!this.eventMap[name]) return
-    // 如果fn为空，取消所有监听
-    if (!fn) {
-      this.eventMap[name] = []
-      return
-    }
-    this.eventMap[name] = this.eventMap[name].filter((item) => item !== fn)
-  }
+  return ans
 }
 
-const bus = new EventBus()
-
-const fnA = (v) => console.log('A事件收到:', v)
-const fnB = (v) => console.log('B事件收到:', v)
-
-bus.on('msgs', fnA)
-bus.on('msgs', fnB)
-
-bus.emit('msgs', 123)
-
-console.log('-------------------------')
-
-bus.off('msgs', fnA)
-bus.emit('msgs', 123)
+console.log(topKFrequent([1, 1, 1, 2, 2, 3], 2))
