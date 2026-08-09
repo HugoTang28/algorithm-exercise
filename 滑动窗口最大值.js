@@ -4,24 +4,26 @@
  * @return {number[]}
  */
 var maxSlidingWindow = function (nums, k) {
-  const queue = [] // 存下标，单调递减
+  const queue = [] // 存队列的下标
   const res = []
+
   for (let i = 0; i < nums.length; i++) {
-    // 1. 删除不在窗口内的队首
+    // 判断队首下标是否在窗口范围内，超出则出队
     if (queue.length && queue[0] <= i - k) {
-      queue.shift() // 删除数组的第一个下标
+      queue.shift()
     }
-    // 2. 队尾比nums[i]小，全部弹出
+
+    // 判读queue队尾 与当前nums[i] 比较，若小于则出队
     while (queue.length && nums[queue[queue.length - 1]] < nums[i]) {
       queue.pop()
     }
     queue.push(i)
-    // 3. 窗口形成，记录结果
+
+    // 在窗口范围内，取队首下标作为最大值
     if (i >= k - 1) {
       res.push(nums[queue[0]])
     }
   }
   return res
 }
-
 console.log(maxSlidingWindow([7, 2, 4], 2))
