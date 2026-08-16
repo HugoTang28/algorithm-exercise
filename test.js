@@ -1,15 +1,13 @@
-const twoSum = (nums, targets) => {
-  const prevNums = new Map() // 存储出现过的数字和对应的索引
-  for (let i = 0; i < nums.length; i++) {
-    const curNum = nums[i]
-    const targetNum = targets - curNum // 目标数
-    const targetNumIndex = prevNums.get(targetNum) // 目标索引
-    if (targetNumIndex !== undefined) {
-      return [targetNumIndex, i]
-    } else {
-      prevNums.set(curNum, i)
-    }
-  }
-}
+const rl = require('readline').createInterface({ input: process.stdin })
+var iter = rl[Symbol.asyncIterator]()
+const readline = async () => (await iter.next()).value
 
-console.log(twoSum([1, 2, 3], 3))
+void (async function () {
+  // Write your code here
+  while ((line = await readline())) {
+    let tokens = line.split(' ')
+    let a = parseInt(tokens[0])
+    let b = parseInt(tokens[1])
+    console.log(a + b)
+  }
+})()
