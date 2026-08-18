@@ -13,7 +13,7 @@ const threeSum = (nums) => {
     if (nums[i] > 0) break
     // 跳过固定值重复，避免答案重复
     if (i > 0 && nums[i] === nums[i - 1]) continue
-    let l = i
+    let l = i + 1
     let r = nums.length - 1
     while (l < r) {
       const sum = nums[i] + nums[l] + nums[r]
@@ -36,4 +36,4 @@ const threeSum = (nums) => {
   return res
 }
 
-console.log(threeSum([-1, 0, 1, 2, -1, -4]))
+console.log(threeSum([-4, -1, 0, 1, 1, 2]))
