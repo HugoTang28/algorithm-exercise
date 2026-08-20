@@ -1,11 +1,18 @@
-const moveZeroes = (nums) => {
-  let slow = 0
-  for (let fast = 0; fast < nums.length; fast++) {
-    if (nums[fast] !== 0) {
-      ;[nums[fast], nums[slow]] = [nums[slow], nums[fast]]
-      slow++
+var maxArea = function (height) {
+  let left = 0
+  let right = height.length - 1
+  let res = 0
+  while (left < right) {
+    const area = (right - left) * Math.min(height[left], height[right])
+    res = Math.max(res, area)
+    if (height[left] < height[right]) {
+      // 左边柱子矮
+      left++
+    } else {
+      right--
     }
   }
-  return nums
+  return res
 }
-console.log(moveZeroes([0, 1, 2, 9, 0, 0, 2123, 123, 345]))
+
+console.log(maxArea([1, 8, 6, 2, 5, 4, 8, 3, 7]))
