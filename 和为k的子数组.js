@@ -28,4 +28,4 @@ const subarraySum = (nums, k) => {
 }
 
 console.log(subarraySum([1, 1, 1], 2)) // 输出 2
-console.log(subarraySum([1, 2, 3, 4, 0, -1], 3)) // 输出 2
+// console.log(subarraySum([1, 2, 3, 4, 0, -1], 3)) // 输出 2
