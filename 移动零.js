@@ -1,3 +1,4 @@
+// 给定一个数组 nums，编写一个函数将所有 0 移动到数组的末尾，同时保持非零元素的相对顺序
 var moveZeroes = function (nums) {
   let slow = 0
   for (let fast = 0; fast < nums.length; fast++) {
