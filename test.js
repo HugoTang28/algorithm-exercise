@@ -1,14 +1,16 @@
-/**
- * @param {number[]} nums
- * @return {number}
- */
-var maxSubArray = function (nums) {
-  let pre = 0
-  let max = nums[0]
-  for (const num of nums) {
-    pre = Math.max(pre + num, num)
-    max = Math.max(max, pre)
+const rotate = (nums, k) => {
+  const reverse = (arr, l, r) => {
+    while (l < r) {
+      ;[arr[r], arr[l]] = [arr[l], arr[r]]
+      l++
+      r--
+    }
   }
-  return max
+  const n = nums.length
+  k = k % n
+  reverse(nums, 0, n - 1)
+  reverse(nums, 0, k - 1)
+  reverse(nums, k, n - 1)
+  return nums
 }
-console.log(maxSubArray([-2, 1, -3, 4, -1, 2, 1, -5, 4]))
+console.log(rotate([1, 2, 3, 4, 5, 6, 7], 1))

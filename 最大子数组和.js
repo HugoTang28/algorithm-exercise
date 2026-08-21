@@ -2,6 +2,7 @@
  * @param {number[]} nums
  * @return {number}
  */
+// 给定整数数组nums，找出连续子数组（至少一个元素）的最大和并返回。子数组要求元素在数组中连续。
 const maxSubArray = function (nums) {
   let pre = 0
   let max = nums[0]
