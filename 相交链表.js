@@ -25,7 +25,12 @@ b1.next = b2
 b2.next = b3
 b3.next = c1 // B链表接到c1，交点是c1(val=8)
 
-const getIntersectionNode = (headA, headB) => {
+/**
+ * @param {ListNode} headA
+ * @param {ListNode} headB
+ * @return {ListNode}
+ */
+var getIntersectionNode = function (headA, headB) {
   let pA = headA
   let pB = headB
   while (pA !== pB) {
