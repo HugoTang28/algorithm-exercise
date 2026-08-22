@@ -1,16 +1,20 @@
-const rotate = (nums, k) => {
-  const reverse = (arr, l, r) => {
-    while (l < r) {
-      ;[arr[r], arr[l]] = [arr[l], arr[r]]
-      l++
-      r--
-    }
+const productExceptSelf = (nums) => {
+  const len = nums.length
+  const answer = new Array()
+  // 左乘积：answer[i] 存i左边所有数乘积
+  answer[0] = 1
+  for (let i = 1; i < len; i++) {
+    answer[i] = answer[i - 1] * nums[i - 1]
   }
-  const n = nums.length
-  k = k % n
-  reverse(nums, 0, n - 1)
-  reverse(nums, 0, k - 1)
-  reverse(nums, k, n - 1)
-  return nums
+
+  // right 保存右边乘积，从后往前遍历
+  let right = 1
+  for (let i = len - 1; i >= 0; i--) {
+    answer[i] *= right
+    right *= nums[i]
+  }
+  return answer
 }
-console.log(rotate([1, 2, 3, 4, 5, 6, 7], 1))
+
+console.log(productExceptSelf([2, 3, 5, 6])) // [ 90, 60, 36, 30 ]
+console.log(productExceptSelf([-1, 1, 0, -3, 3])) // [0,0,9,0,0]
