@@ -1,3 +1,5 @@
+//  Definition for singly-linked list.
+// 构造链表节点
 class ListNode {
   constructor(val, next) {
     this.val = val === undefined ? 0 : val
@@ -12,7 +14,7 @@ let n3 = new ListNode(3)
 n1.next = n2
 n2.next = n3
 
-const reverseList = (head) => {
+var reverseList = function (head) {
   let prev = null
   let curr = head
   while (curr) {
