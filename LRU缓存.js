@@ -27,9 +27,10 @@ LRUCache.prototype.put = function (key, value) {
   if (this.map.has(key)) {
     this.map.delete(key)
   } else {
-    if (this.map.size > this.cap) {
-      const older = this.map.keys().next().value
-      this.map.delete(older)
+    // 容量超限，删除最久未使用（Map第一个）
+    if (this.map.size >= this.cap) {
+      const oldKey = this.map.keys().next().value // 取map的第一个
+      this.map.delete(oldKey)
     }
   }
   this.map.set(key, value)
